@@ -3,11 +3,13 @@ var canvas = document.body.querySelector("#wheelCanvas");
 var ctx = canvas.getContext("2d");
 
 canvas.width = 0.9925 * window.innerWidth;
-canvas.height = 0.98 * window.innerHeight;
+canvas.height = 0.8 * window.innerHeight;
 var CW = canvas.width;
 var CH = canvas.height;
 var CW_resize = canvas.width;
 var CH_resize = canvas.height;
+
+var input = document.body.querySelector("#userNum");
 
 //---------------------------------------------------------------------------------------//
 //Let's get the actual drawing/animating goin'
@@ -55,6 +57,20 @@ var rgbArr = ["25500", "2551650", "2552550", "01280", "00255", "750130", "238130
 var PIcounter = 0;
 var arcCounter = 7;
 var clrCounter = 0;
+
+function changeNumber() {
+    PIcounter = 0;
+    clrCounter = 0;
+    arcCounter = input.value;
+    circleArr = [];
+    for (var counter = 0; counter < arcCounter; counter++ , PIcounter += (Math.PI * 2) / arcCounter, clrCounter++) {
+        circleArr.push(new arc(CW / 2, CH / 2, PIcounter, PIcounter + (Math.PI * 2) / arcCounter, colorArr[clrCounter]))
+        if (clrCounter == 6) {
+            clrCounter = 0;
+        }
+    }
+
+}
 for (var counter = 0; counter < arcCounter; counter++ , PIcounter += (Math.PI * 2) / arcCounter, clrCounter++) {
     circleArr.push(new arc(CW / 2, CH / 2, PIcounter, PIcounter + (Math.PI * 2) / arcCounter, colorArr[clrCounter]))
     if (clrCounter == 6) {
@@ -67,7 +83,7 @@ canvas.addEventListener('click', function(){
 })
 function mainLoop() {
     canvas.width = 0.9925 * window.innerWidth;
-    canvas.height = 0.98 * window.innerHeight;
+    canvas.height = 0.8 * window.innerHeight;
     CW = canvas.width;
     CH = canvas.height;
 
